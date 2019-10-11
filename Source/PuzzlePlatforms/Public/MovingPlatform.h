@@ -28,6 +28,10 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Setup")
 	float TravelTime;
 
+	void AddActiveTrigger();
+
+	void RemoveActiveTrigger();
+
 #if WITH_EDITOR // need to be here, to avoid errors when packaging
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 #endif 
@@ -46,6 +50,7 @@ private:
 
 	FVector GlobalTargetLocation;
 
-	
+	UPROPERTY(EditAnywhere)
+	int32 ActiveTriggers = 1;
 
 };

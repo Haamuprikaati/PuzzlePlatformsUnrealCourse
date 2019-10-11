@@ -27,6 +27,10 @@ private:
 	UFUNCTION()
 	void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
+	UPROPERTY(EditAnywhere)
+	TArray<class AMovingPlatform*> PlatformsToTrigger;
+
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

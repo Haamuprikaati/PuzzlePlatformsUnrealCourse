@@ -2,7 +2,9 @@
 
 
 #include "PlatformTrigger.h"
+
 #include "Components/BoxComponent.h"
+#include "MovingPlatform.h"
 
 // Sets default values
 APlatformTrigger::APlatformTrigger()
@@ -38,7 +40,10 @@ void APlatformTrigger::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActo
 {
 	if (HasAuthority())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Activated!"))
+		for (AMovingPlatform* Platform : PlatformsToTrigger)
+		{
+			Platform->AddActiveTrigger();
+		}
 	}
 }
 
@@ -46,6 +51,9 @@ void APlatformTrigger::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor*
 {
 	if (HasAuthority())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Deactivated!"))
+		for (AMovingPlatform* Platform : PlatformsToTrigger)
+		{
+			Platform->RemoveActiveTrigger();
+		}
 	}
 }
