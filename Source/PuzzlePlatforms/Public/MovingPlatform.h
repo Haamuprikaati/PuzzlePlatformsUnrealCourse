@@ -22,6 +22,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Setup")
 	float Speed = 5;
 
+	UPROPERTY(EditAnywhere, Meta = (MakeEditWidget = true))
+	FVector TargetLocation;
+
 protected:
 
 	// Called when the game starts or when spawned
