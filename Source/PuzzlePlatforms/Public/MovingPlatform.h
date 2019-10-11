@@ -35,4 +35,8 @@ protected:
 	
 private:
 
+	FVector GlobalStartLocation;
+
+	FVector GlobalTargetLocation;
+
 };
