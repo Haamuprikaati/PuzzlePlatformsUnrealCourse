@@ -20,10 +20,17 @@ public:
 	AMovingPlatform();
 
 	UPROPERTY(EditAnywhere, Category = "Setup")
-	float Speed = 5;
+	float MovingSpeed = 150;
 
 	UPROPERTY(EditAnywhere, Meta = (MakeEditWidget = true))
 	FVector TargetLocation;
+
+	UPROPERTY(EditAnywhere, Category = "Setup")
+	float TravelTime;
+
+#if WITH_EDITOR // need to be here, to avoid errors when packaging
+	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
+#endif 
 
 protected:
 
@@ -38,5 +45,7 @@ private:
 	FVector GlobalStartLocation;
 
 	FVector GlobalTargetLocation;
+
+	
 
 };

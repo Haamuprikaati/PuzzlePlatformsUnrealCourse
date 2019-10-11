@@ -46,7 +46,28 @@ void AMovingPlatform::Tick(float DeltaTime)
 			GlobalTargetLocation = Swap;
 		}
 		FVector Direction = (GlobalTargetLocation - GlobalStartLocation).GetSafeNormal();
-		Location += Speed * DeltaTime * Direction;
+		Location += MovingSpeed * DeltaTime * Direction;
 		SetActorLocation(Location);
 	}
 }
+
+#if WITH_EDITOR // need to be here, to avoid errors when packaging
+void AMovingPlatform::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
+{
+	Super::PostEditChangeProperty(PropertyChangedEvent);
+
+	if (PropertyChangedEvent.GetPropertyName() == "MovingSpeed")
+	{
+		TravelTime = TargetLocation.Size() / MovingSpeed;
+	}
+	if (PropertyChangedEvent.GetPropertyName() == "TravelTime")
+	{
+		MovingSpeed = TargetLocation.Size() / TravelTime;
+	}
+	if (PropertyChangedEvent.GetPropertyName() == "TargetLocation")
+	{
+		MovingSpeed = TargetLocation.Size() / TravelTime;
+	}
+
+}
+#endif
