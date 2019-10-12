@@ -3,6 +3,7 @@
 
 #include "PuzzlePlatforms_GI.h"
 
+#include "GameFramework/PlayerController.h"
 #include "Engine/Engine.h"
 
 UPuzzlePlatforms_GI::UPuzzlePlatforms_GI(const FObjectInitializer& ObjectInitializer)
@@ -38,4 +39,9 @@ void UPuzzlePlatforms_GI::Join(const FString& Address)
 	if (!ensure(Engine != nullptr)) return;
 
 	Engine->AddOnScreenDebugMessage(0, 2, FColor::Green, FString::Printf(TEXT("Joining %s"), *Address));
+
+	APlayerController* PlayerController = GetFirstLocalPlayerController();
+	if (!ensure(PlayerController != nullptr)) return;
+
+	PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
 }
